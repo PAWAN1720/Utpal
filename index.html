@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GJV Translator</title>
-    <!-- Google Fonts -->
+    <title>GJV Translator - Official Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -36,7 +34,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Top Navigation --- */
+        /* --- Navigation --- */
         nav {
             position: absolute;
             top: 20px;
@@ -53,10 +51,6 @@
             outline: none;
             cursor: pointer;
             backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
-        .lang-selector:hover {
-            background: rgba(255, 255, 255, 0.2);
         }
 
         /* --- Main Container --- */
@@ -85,25 +79,30 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            text-align: center;
             animation-delay: 0.5s;
         }
 
-        #app-logo {
-            width: 120px;
-            height: 120px;
-            background: var(--glass-bg);
+        /* LOGO STYLING WITH YOUR IMAGE */
+        #app-logo-container {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.4);
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 3rem;
-            color: var(--secondary);
-            border: 2px solid var(--glass-border);
-            box-shadow: 0 0 30px rgba(108, 99, 255, 0.4);
-            margin-bottom: 30px;
-            animation-delay: 1.5s;
-            animation: fadeUp 1s ease 1.5s forwards, float 3s ease-in-out infinite alternate 2.5s;
+            animation: fadeUp 1s ease 1s forwards, float 3s ease-in-out infinite alternate 2s;
+        }
+
+        #app-logo-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--bg-color);
         }
 
         .info-card {
@@ -114,122 +113,91 @@
             padding: 40px;
             text-align: center;
             max-width: 800px;
-            animation-delay: 2.5s;
+            animation-delay: 1.5s;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .info-card h2 { margin-bottom: 15px; color: var(--secondary); }
-        .info-card p { font-size: 1rem; line-height: 1.6; color: #cbd5e1; margin-bottom: 15px; }
-        .publisher { font-size: 0.85rem; color: #94a3b8; margin-top: 20px; font-style: italic; }
-
-        /* --- Download Button --- */
-        .download-btn {
-            display: inline-block;
+        /* --- Buttons --- */
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
             margin-top: 30px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: white;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
             border-radius: 30px;
             text-decoration: none;
-            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.4);
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .download-btn {
+            color: white;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.4);
             animation: pulseGlow 2s infinite;
         }
 
-        .download-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.5);
+        .try-btn {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border) !important;
         }
 
-        /* --- Bottom Stats Row --- */
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
+        .btn:hover { transform: translateY(-5px); }
+        .try-btn:hover { background: rgba(255,255,255,0.2); }
+
+        /* --- MODAL FOR "TRY IT NOW" --- */
+        #previewModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
             align-items: center;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 50px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .stat-col { flex: 1; text-align: center; padding: 10px; }
-        .stars i { color: #fbbf24; font-size: 1.2rem; margin: 0 2px; }
-        .downloads h3 { font-size: 2rem; color: var(--secondary); }
-        .downloads p { font-size: 0.8rem; color: #94a3b8; }
-        .review-slider { font-style: italic; font-size: 0.9rem; color: #e2e8f0; min-height: 50px; }
-
-        /* --- Submit Review Section --- */
-        .review-form-section {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 30px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
             backdrop-filter: blur(10px);
-            animation-delay: 3.5s;
         }
 
-        .review-form-section h3 {
-            text-align: center;
-            color: var(--secondary);
-            margin-bottom: 20px;
+        .modal-content {
+            position: relative;
+            width: 95%;
+            height: 90%;
+            background: #0f1a40; 
+            border-radius: 20px;
+            border: 1px solid var(--secondary);
+            overflow: hidden;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .custom-input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 40px;
             color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .custom-input:focus {
-            border-color: var(--secondary);
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        textarea.custom-input {
-            resize: none;
-            height: 100px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
             cursor: pointer;
+            z-index: 1100;
             transition: 0.3s;
         }
+        
+        .close-modal:hover { color: var(--secondary); }
 
-        .submit-btn:hover {
-            background: var(--secondary);
-            color: var(--bg-color);
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        /* --- Keyframes --- */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes float { from { transform: translateY(0px); } to { transform: translateY(-15px); } }
         @keyframes pulseGlow {
@@ -238,156 +206,85 @@
             100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
         }
 
-        /* Responsive */
         @media(max-width: 768px) {
-            .stats-row { flex-direction: column; gap: 20px; }
             #app-name { font-size: 2.5rem; }
+            .cta-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Language Selector -->
     <nav>
-        <select class="lang-selector" id="langSelect">
-            <option value="en">English</option>
-            <option value="as">Assamese (অসমীয়া)</option>
+        <select class="lang-selector">
+            <option>English</option>
+            <option>Assamese</option>
         </select>
     </nav>
 
     <div class="container">
         
-        <!-- 1. Name -->
         <h1 id="app-name" class="seq-item">GJV Translator</h1>
         
-        <!-- 2. Logo -->
-        <div id="app-logo" class="seq-item">
-            <i class="fa-solid fa-language"></i>
+        <div id="app-logo-container" class="seq-item">
+            <img src="1000000471.jpg" alt="GJV Logo">
         </div>
 
-        <!-- 3. Info Card -->
         <div class="info-card seq-item">
-            <h2>What's new in this translator?</h2>
-            <p><strong>GJV Translator</strong> is an Assamese translation app designed especially for Assamese people (for now), with more features planned in the future.</p>
-            <p>What’s new in this version is that it now includes Assamese grammar support, grammar learning tools, and Assamese grammar games to make learning more fun and interactive. It also offers parsing features and a collection of important and uncommon words to help users understand the language more deeply.</p>
-            <p>Along with translation, the app also has a built-in music system, so you can enjoy listening while using it. There’s also a simple in-app guide to help you get started easily.</p>
-            <p>No login is required, and the app is lightweight and easy to download.</p>
-            <p class="publisher">Published by Gyaanpeeth Jatiya Vidyalaya</p>
+            <h2>GJV Translator App</h2>
+            <p>The most advanced Assamese translation tool with built-in grammar learning, music player, and educational games.</p>
             
-            <a href="#download-link-here" class="download-btn"><i class="fa-solid fa-download"></i> Download Now</a>
-        </div>
-
-        <!-- 4. Stats & Reviews Row -->
-        <div class="stats-row seq-item" style="animation-delay: 3s;">
-            <!-- Left: 5 Star -->
-            <div class="stat-col stars">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <p style="font-size: 0.8rem; margin-top: 5px;">Top Rated App</p>
+            <div class="cta-group">
+                <button onclick="openPreview()" class="btn try-btn">
+                    <i class="fa-solid fa-play"></i> Try It Now
+                </button>
+                
+                <a href="gjv-translator-fixed.html" download="GJV_Translator.html" class="btn download-btn">
+                    <i class="fa-solid fa-download"></i> Download App
+                </a>
             </div>
             
-            <!-- Middle: Downloads -->
-            <div class="stat-col downloads">
-                <h3>5K+</h3>
-                <p>Downloads</p>
-            </div>
-
-            <!-- Right: Dynamic Reviews -->
-            <div class="stat-col">
-                <div class="review-slider" id="review-text">
-                    "Makes learning Assamese grammar so much fun! Highly recommended." <br> <strong>- Rahul D.</strong>
-                </div>
-            </div>
+            <p style="margin-top:25px; font-size: 0.85rem; color:#94a3b8; font-style: italic;">
+                Published by Gyaanpeeth Jatiya Vidyalaya
+            </p>
         </div>
-
-        <!-- 5. Submit Review Form -->
-        <div class="review-form-section seq-item">
-            <h3><i class="fa-solid fa-pen-to-square"></i> Rate & Review Us</h3>
-            <div class="form-group">
-                <input type="text" id="reviewer-name" class="custom-input" placeholder="Enter your name">
-                <textarea id="reviewer-text" class="custom-input" placeholder="Write your review here..."></textarea>
-            </div>
-            <button class="submit-btn" onclick="submitUserReview()"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
-        </div>
-
     </div>
 
-    <!-- JavaScript for Interactions -->
+    <div id="previewModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closePreview()">&times;</span>
+            <iframe id="previewIframe" src=""></iframe>
+        </div>
+    </div>
+
     <script>
-        // 1. Initial Default Reviews
-        const defaultReviews = [
-            '"Makes learning Assamese grammar so much fun! Highly recommended." <br> <strong>- Rahul D.</strong>',
-            '"The built-in music system is a game changer! So relaxing." <br> <strong>- Priya M.</strong>',
-            '"No login required, fast and lightweight. 5 Stars!" <br> <strong>- Bikash S.</strong>'
-        ];
-
-        // 2. Load custom user reviews from Local Storage
-        let customReviews = JSON.parse(localStorage.getItem('gjv_user_reviews')) || [];
-        
-        // 3. Combine both lists
-        let allReviews = [...defaultReviews, ...customReviews];
-        
-        let reviewIndex = 0;
-        const reviewElement = document.getElementById('review-text');
-
-        // 4. Slider Logic: Change review every 4 seconds
-        setInterval(() => {
-            reviewElement.style.opacity = 0;
-            setTimeout(() => {
-                reviewIndex = (reviewIndex + 1) % allReviews.length;
-                reviewElement.innerHTML = allReviews[reviewIndex];
-                reviewElement.style.opacity = 1;
-                reviewElement.style.transition = "opacity 0.5s ease";
-            }, 500);
-        }, 4000); 
-
-        // 5. Submit Review Function
-        function submitUserReview() {
-            const nameInput = document.getElementById('reviewer-name');
-            const textInput = document.getElementById('reviewer-text');
-
-            const name = nameInput.value.trim();
-            const text = textInput.value.trim();
-
-            if(name === "" || text === "") {
-                alert("Please fill in both your name and review before submitting!");
-                return;
-            }
-
-            // Create formatted review string
-            const newReviewHTML = `"${text}" <br> <strong>- ${name}</strong>`;
-
-            // Add to our arrays
-            customReviews.push(newReviewHTML);
-            allReviews.push(newReviewHTML);
-
-            // Save to browser's Local Storage so it stays on refresh!
-            localStorage.setItem('gjv_user_reviews', JSON.stringify(customReviews));
-
-            // Clear the inputs
-            nameInput.value = "";
-            textInput.value = "";
-
-            alert("Thank you! Your review has been submitted and added to the website.");
-
-            // Force the slider to show the newly submitted review instantly
-            reviewIndex = allReviews.length - 1;
-            reviewElement.style.opacity = 0;
-            setTimeout(() => {
-                reviewElement.innerHTML = allReviews[reviewIndex];
-                reviewElement.style.opacity = 1;
-            }, 500);
+        // Open the preview modal
+        function openPreview() {
+            const modal = document.getElementById('previewModal');
+            const iframe = document.getElementById('previewIframe');
+            
+            // Set source to load the file
+            iframe.src = "gjv-translator-fixed.html";
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop page scrolling
         }
 
-        // Language Selector alert
-        document.getElementById('langSelect').addEventListener('change', function() {
-            if(this.value === 'as') {
-                alert("Assamese language pack loading... (Feature to be implemented)");
+        // Close the preview modal
+        function closePreview() {
+            const modal = document.getElementById('previewModal');
+            const iframe = document.getElementById('previewIframe');
+            
+            modal.style.display = 'none';
+            iframe.src = ""; // Kill the iframe to stop music/processes
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close when clicking outside the window
+        window.onclick = function(event) {
+            const modal = document.getElementById('previewModal');
+            if (event.target == modal) {
+                closePreview();
             }
-        });
+        }
     </script>
 </body>
 </html>
